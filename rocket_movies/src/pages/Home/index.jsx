@@ -5,7 +5,6 @@ import { Container } from "./styles"
 import { Header } from "../../components/Header"
 import { FilmNote } from "../../components/FilmNote"
 
-
 export function Home() {
 
   return (

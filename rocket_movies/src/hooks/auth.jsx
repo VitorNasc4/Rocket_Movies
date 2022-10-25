@@ -1,23 +1,23 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-import {api} from "../services/api"
+import { api } from "../services/api"
 
 const AuthContext = createContext({})
 
-function AuthProvider({children}) {
+function AuthProvider({ children }) {
   const [data, setData] = useState({})
 
-  async function signIn({email, password}) {
+  async function signIn({ email, password }) {
     try {
-      const response = await api.post("/sessions", {email, password})
+      const response = await api.post("/sessions", { email, password })
 
-      const {user, token} = response.data
+      const { user, token } = response.data
 
       localStorage.setItem("@rocketmovies: user", JSON.stringify(user))
       localStorage.setItem("@rocketmovies: token", token)
 
-      setData({user, token})
-    } catch(error) {
+      setData({ user, token })
+    } catch (error) {
       if (error.response) {
         alert(error.response.data.message)
       } else {
@@ -31,6 +31,33 @@ function AuthProvider({children}) {
     localStorage.removeItem("@rocketmovies: user")
 
     setData({})
+  }
+
+  async function updateProfile({ user }) {
+    if (!user.name) {
+      return alert("Preencha seu nome")
+    }
+    if (!user.email) {
+      return alert("Preencha seu email")
+    }
+    
+    try {
+      await api.put("/users", user)
+
+      localStorage.setItem("@rocketmovies: user", JSON.stringify(user))
+
+      setData({ user, token: data.token })
+
+      alert("Perfil atualizado")
+    } catch {
+      if (error.response) {
+        alert(error.response.data.message)
+      } else {
+        alert("Não foi possível fazer o login")
+      }
+    }
+
+
   }
 
   useEffect(() => {
@@ -48,7 +75,7 @@ function AuthProvider({children}) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{signIn, user: data.user, signOut}} >
+    <AuthContext.Provider value={{ signIn, user: data.user, signOut, updateProfile}} >
       {children}
     </AuthContext.Provider>
   )
@@ -60,4 +87,4 @@ function useAuth() {
   return context
 }
 
-export {AuthProvider, useAuth}
+export { AuthProvider, useAuth }

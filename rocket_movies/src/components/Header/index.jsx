@@ -6,11 +6,10 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 
 export function Header() {
-  const {signOut} = useAuth()
+  const {signOut, user} = useAuth()
 
   function handleClick() {
     signOut()
-    console.log("teste")
   }
   return (
     <Container>
@@ -19,7 +18,7 @@ export function Header() {
 
       <Profile>
         <div>
-          <Link to="/profile">Vitor Marciano</Link>
+          <Link to="/profile">{user.name}</Link>
           <a onClick={handleClick}>sair</a>
         </div>
         <img src="https://www.github.com/VitorNasc4.png" alt="Foto de perfil do usuário" />
