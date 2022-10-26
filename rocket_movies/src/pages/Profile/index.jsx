@@ -10,6 +10,9 @@ import { useAuth } from "../../hooks/auth"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
+import avatarPlaceHolder from "../../assets/avatar_placeholder.svg"
+import {api} from "../../services/api"
+
 export function Profile() {
   const { updateProfile, user } = useAuth()
 
@@ -20,16 +23,30 @@ export function Profile() {
 
   const navigate = useNavigate()
 
+  const avatarURL = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceHolder
+  const [avatar, setAvatar] = useState(avatarURL)
+  const [avatarFile, setAvatarFile] = useState(null)
+
   async function handleClick() {
-    const user = {
+    const updated = {
       name,
       email, 
       password,
-      old_password
+      old_password 
     }
+
+    const userUpdated = Object.assign(user, updated)
     
-    await updateProfile({user})
+    await updateProfile({user: userUpdated, avatarFile})
     navigate("/")
+  }
+
+  function handleChangeAvatar(event) {
+    const file = event.target.files[0]
+    setAvatarFile(file)
+
+    const imagePreview = URL.createObjectURL(file)
+    setAvatar(imagePreview)
   }
 
   return (
@@ -40,7 +57,7 @@ export function Profile() {
 
       <Avatar>
         <img
-          src="https://www.github.com/VitorNasc4.png"
+          src={avatar}
           alt="Foto de usuário"
         />
 
@@ -50,6 +67,7 @@ export function Profile() {
           <input
             id="avatar"
             type="file"
+            onChange={handleChangeAvatar}
           />
         </label>
       </Avatar>

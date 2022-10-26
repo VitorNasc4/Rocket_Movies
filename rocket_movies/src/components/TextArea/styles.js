@@ -11,6 +11,7 @@ export const Container = styled.textarea`
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
+  color: ${({theme}) => theme.COLORS.WHITE};
 
   &:placeholder {
     color: ${({ theme }) => theme.COLORS.GREY_100};

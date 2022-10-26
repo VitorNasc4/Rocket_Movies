@@ -4,9 +4,9 @@ import { Container } from "./styles"
 import { Tags } from "../Tags"
 
 export function FilmNote({ data, ...rest }) {
-  function countingStar(grade) {
+  function countingStar(rating) {
     let arr = ["", "", "", "", ""]
-    for (let i = 0; i <= grade - 1; i++) {
+    for (let i = 0; i <= rating - 1; i++) {
       arr[i] = "star"
     }
 
@@ -22,7 +22,7 @@ export function FilmNote({ data, ...rest }) {
 
         <div className="grade">
           {
-            data.grade && countingStar(data.grade).map((item) => {
+            data.rating && countingStar(data.rating).map((item) => {
               if (item == "star") {
                 return <AiFillStar />
               } else {
@@ -33,7 +33,7 @@ export function FilmNote({ data, ...rest }) {
         </div>
 
         <p>
-          {data.text}
+          {data.description}
         </p>
 
         {

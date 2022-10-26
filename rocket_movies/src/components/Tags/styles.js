@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Container = styled.button`
+export const Container = styled.div`
   padding: 8px 12px;
   font-size: 12px;
   line-height: 14px;
@@ -14,10 +14,13 @@ export const Container = styled.button`
 
   display: flex;
   align-items: center;
-
-  > SVG {
-        margin-left: 8px;
-        color: ${({ theme }) => theme.COLORS.GREY_100};
-    }
+  
+  > button {
+    background-color: transparent;
+    border: none;
+    margin-left: 8px;
+    
+    color: ${({ theme }) => theme.COLORS.PINK};
+  }
   
 `

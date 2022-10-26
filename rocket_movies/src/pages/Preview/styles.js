@@ -65,6 +65,7 @@ export const Container = styled.div`
 
   section {
     margin: 40px 80px;
+
     .tags {
       display: flex;
       align-items: center;
@@ -80,5 +81,18 @@ export const Container = styled.div`
       color: ${({ theme }) => theme.COLORS.WHITE};
     }
   }
+
+  > footer {
+    margin: 40px 80px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > button {
+      width: 25%;
+    }
+  }
+
 }
 `

@@ -33,12 +33,21 @@ function AuthProvider({ children }) {
     setData({})
   }
 
-  async function updateProfile({ user }) {
+  async function updateProfile({ user, avatarFile }) {
+
     if (!user.name) {
       return alert("Preencha seu nome")
     }
     if (!user.email) {
       return alert("Preencha seu email")
+    }
+    
+    if (avatarFile) {
+      const fileUploadForm = new FormData()
+      fileUploadForm.append("avatar", avatarFile)
+
+      const response = await api.patch("/users/avatar", fileUploadForm)
+      user.avatar = response.data.avatar
     }
     
     try {
