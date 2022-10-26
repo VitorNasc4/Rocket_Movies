@@ -16,6 +16,8 @@ function AuthProvider({ children }) {
       localStorage.setItem("@rocketmovies: user", JSON.stringify(user))
       localStorage.setItem("@rocketmovies: token", token)
 
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
       setData({ user, token })
     } catch (error) {
       if (error.response) {
@@ -58,7 +60,7 @@ function AuthProvider({ children }) {
       setData({ user, token: data.token })
 
       alert("Perfil atualizado")
-    } catch {
+    } catch (error) {
       if (error.response) {
         alert(error.response.data.message)
       } else {

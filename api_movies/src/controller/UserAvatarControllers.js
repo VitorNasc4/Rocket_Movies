@@ -12,7 +12,7 @@ class UserAvatarConrollers {
     const diskStorage = new DiskStorage()
 
     if (!user) {
-      throw new AppError("Somente usuários autenticado podem mudar o avatar", 401)
+      throw new AppError(" usuários autenticado podem mudar o avatar", 401)
     }
 
     if (user.avatar) {
