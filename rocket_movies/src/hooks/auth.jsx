@@ -43,7 +43,7 @@ function AuthProvider({ children }) {
     if (!user.email) {
       return alert("Preencha seu email")
     }
-    
+
     if (avatarFile) {
       const fileUploadForm = new FormData()
       fileUploadForm.append("avatar", avatarFile)
@@ -51,7 +51,7 @@ function AuthProvider({ children }) {
       const response = await api.patch("/users/avatar", fileUploadForm)
       user.avatar = response.data.avatar
     }
-    
+
     try {
       await api.put("/users", user)
 
@@ -86,7 +86,7 @@ function AuthProvider({ children }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ signIn, user: data.user, signOut, updateProfile}} >
+    <AuthContext.Provider value={{ signIn, user: data.user, signOut, updateProfile }} >
       {children}
     </AuthContext.Provider>
   )
